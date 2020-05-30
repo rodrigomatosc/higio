@@ -1,11 +1,20 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import colors from '../colors';
 
-const Button = ({text, onClick, styleButton, styleText}) => {
+const Button = ({text, onClick, styleButton, styleText, loading}) => {
   return (
-    <TouchableOpacity style={[styles.button, styleButton]} onClick={onClick}>
-      <Text style={[styles.text, styleText]}>{text}</Text>
+    <TouchableOpacity style={[styles.button, styleButton]} onPress={onClick}>
+      {loading ? (
+        <ActivityIndicator size="small" color={colors.primaryColor} />
+      ) : (
+        <Text style={[styles.text, styleText]}>{text}</Text>
+      )}
     </TouchableOpacity>
   );
 };

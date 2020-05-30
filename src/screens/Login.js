@@ -1,14 +1,55 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import {Input, Container, Button} from '../components';
 import colors from '../colors';
+import {login} from '../services/user';
+import {useDispatch} from 'react-redux';
+import {USER_LOGIN} from '../reducers';
 
-const Login = () => {
-  const onClick = () => {};
+const Login = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorLogin, setErrorLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const onClickCreateAccount = () => {};
+  const changeEmail = (event) => {
+    setEmail(event.nativeEvent.text);
+  };
 
-  const onClickForgetPass = () => {};
+  const changePass = (event) => {
+    setPassword(event.nativeEvent.text);
+  };
+
+  const onClickLogin = async () => {
+    setLoading(true);
+    const token = await login({email, password});
+
+    if (!token) {
+      emitErrorLogin();
+    } else {
+      dispatch({type: USER_LOGIN, payload: {email, token}});
+
+      clearScreen();
+    }
+    setLoading(false);
+  };
+
+  const onClickCreateAccount = () => {
+    navigation.navigate('CreateAccount');
+  };
+
+  const clearScreen = () => {
+    setEmail('');
+    setPassword('');
+  };
+
+  const emitErrorLogin = () => {
+    setErrorLogin(true);
+    setTimeout(() => {
+      setErrorLogin(false);
+    }, 2000);
+  };
 
   return (
     <Container>
@@ -22,26 +63,35 @@ const Login = () => {
 
           {/* inputs */}
           <View style={styles.containerInputs}>
-            <Input placeholder="email" />
-            <Input placeholder="password" />
+            <Input placeholder="email" onChange={changeEmail} value={email} />
+            <Input
+              placeholder="password"
+              password
+              onChange={changePass}
+              value={password}
+            />
+
+            <Text style={styles.errorLogin}>
+              {errorLogin && 'Incorrect username or password'}
+            </Text>
           </View>
 
           {/* buttons */}
           <View style={styles.containerButton}>
-            <Button text="Login" onClick={onClick} />
+            <Button text="Login" onClick={onClickLogin} loading={loading} />
           </View>
         </View>
 
         {/* options */}
 
         <View style={styles.containerOptions}>
-          <TouchableOpacity style={styles.options} onClick={onClickForgetPass}>
+          {/* <TouchableOpacity style={styles.options} onPress={onClickForgetPass}>
             <Text style={styles.textOptions}>forgot password ?</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity
             style={styles.options}
-            onClick={onClickCreateAccount}>
+            onPress={onClickCreateAccount}>
             <Text style={styles.textOptions}>create account</Text>
           </TouchableOpacity>
         </View>
@@ -82,6 +132,10 @@ const styles = StyleSheet.create({
   },
   textOptions: {
     color: colors.textInputColor,
+  },
+  errorLogin: {
+    textAlign: 'center',
+    color: 'red',
   },
 });
 
