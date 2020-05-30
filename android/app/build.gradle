@@ -135,6 +135,8 @@ android {
         versionCode 1
         versionName "1.0"
         missingDimensionStrategy 'react-native-camera', 'general' 
+        multiDexEnabled true
+
     }
     splits {
         abi {
@@ -189,13 +191,15 @@ android {
 }
 
 dependencies {
+
+ 
     implementation (project(':react-native-maps')){
          exclude group: 'com.google.android.gms', module :'play-services-base'
          exclude group: 'com.google.android.gms', module :'play-services-maps'
     }
+    implementation 'com.google.android.gms:play-services-base:15.0.1'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
 
-    implementation 'com.google.android.gm:play-services-base:15.0.1'
-    implementation 'com.google.android.gm:play-services-maps:15.0.1'
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
