@@ -15,15 +15,15 @@ const Map = () => {
     loadBins();
   });
 
-  // const renderBins = () => {
-  //   bins.map((marker) => (
-  //     <Marker
-  //       coordinate={marker.latlng}
-  //       title={marker.title}
-  //       description={marker.description}
-  //     />
-  //   ));
-  // };
+  const renderBins = () => {
+    <>
+      <Marker
+        coordinate={{latitude: 38.70120243, longitude: -9.2024231}}
+        title={'Recycling'}
+        description={''}
+      />
+    </>;
+  };
 
   const loadBins = async () => {
     const bins = await index(token);
@@ -40,13 +40,13 @@ const Map = () => {
           loadingEnabled={true}
           showsUserLocation={true}
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: 38.70120243,
+            longitude: -9.2024231,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
-          }}
-          mapType={'standard'}
-        />
+          }}>
+          {renderBins()}
+        </MapView>
       </View>
     </View>
   );

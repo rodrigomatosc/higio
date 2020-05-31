@@ -19,6 +19,7 @@ const Tabs = () => {
       tabBarOptions={{
         showIcon: true,
         showLabel: false,
+        header: {visible: true},
       }}>
       <Tab.Screen name="Scanner" component={Scanner} />
       <Tab.Screen name="Map" component={Map} />

@@ -22,8 +22,8 @@ const Profile = () => {
           </View>
         </View>
         <View style={styles.containerScore}>
-          <Text style={styles.textTitleScore}>Ranking Recycling</Text>
-          <Text style={styles.textScore}>300 k</Text>
+          <Text style={styles.textTitleScore}>Score Recycling</Text>
+          <Text style={styles.textScore}>300</Text>
           <Text style={styles.textObs}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget
             maximus ipsum.{' '}

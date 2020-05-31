@@ -6,24 +6,28 @@ import {
   Text,
   TouchableOpacity,
   Linking,
+  Image,
+  Dimensions,
 } from 'react-native';
 import {Header} from '../components';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 
+const widthScreen = Dimensions.get('window').width;
+
 const Scanner = () => {
-  // const onSuccess = (e) => {
-  //   Linking.openURL(e.data).catch((err) =>
-  //     console.error('An error occured', err),
-  //   );
-  // };
+  const onSuccess = (e) => {
+    Linking.openURL(e.data).catch((err) =>
+      console.error('An error occured', err),
+    );
+  };
   return (
     <>
       <Header text="Scanner" />
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <QRCodeScanner
-          onRead={this.onSuccess}
+          onRead={onSuccess}
           flashMode={RNCamera.Constants.FlashMode.torch}
           topContent={
             <Text style={styles.centerText}>
@@ -38,6 +42,13 @@ const Scanner = () => {
             </TouchableOpacity>
           }
         />
+        {/* <Image
+          style={styles.image}
+          source={{
+            uri:
+              'https://7labs.io/wp-content/uploads/2012/10/Generate-and-Read-QR-Codes-Online.png',
+          }}
+        /> */}
       </View>
     </>
   );
@@ -61,5 +72,6 @@ const styles = StyleSheet.create({
   buttonTouchable: {
     padding: 16,
   },
+  image: {width: widthScreen - 30, height: 400},
 });
 export default Scanner;

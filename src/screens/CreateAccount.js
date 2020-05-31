@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'space-between',
-    marginVertical: 50,
+    // marginVertical: 50,
   },
   containerLogo: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 70,
+    marginVertical: 30,
   },
   title: {
     color: colors.textTitle,

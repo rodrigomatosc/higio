@@ -12,25 +12,12 @@ const icons = {
 
 export default function TabBarIcon({name, focused}) {
   return (
-    <View
-      style={{
-        borderWidth: focused ? 2 : 0.2,
-        borderRadius: 50,
-        width: 50,
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: focused ? colors.tabTextOpacity : colors.textInputColor,
-        marginBottom: focused ? 10 : 0,
-        backgroundColor: colors.primaryColor,
-      }}>
-      <Icon
-        name={icons[name]}
-        size={24}
-        color={focused ? colors.tabTextOpacity : colors.textInputColor}
-        style={styles.icon}
-      />
-    </View>
+    <Icon
+      name={icons[name]}
+      size={24}
+      color={focused ? colors.tabTextOpacity : colors.textInputColor}
+      style={styles.icon}
+    />
   );
 }
 

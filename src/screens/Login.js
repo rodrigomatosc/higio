@@ -22,17 +22,17 @@ const Login = ({navigation}) => {
   };
 
   const onClickLogin = async () => {
-    setLoading(true);
-    const token = await login({email, password});
+    // setLoading(true);
+    // const token = await login({email, password});
 
-    if (!token) {
-      emitErrorLogin();
-    } else {
-      dispatch({type: USER_LOGIN, payload: {email, token}});
+    // if (!token) {
+    //   emitErrorLogin();
+    // } else {
+    dispatch({type: USER_LOGIN, payload: {email, token: 'teste'}});
 
-      clearScreen();
-    }
-    setLoading(false);
+    clearScreen();
+    // }
+    // setLoading(false);
   };
 
   const onClickCreateAccount = () => {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   containerLogo: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 70,
+    marginVertical: 30,
   },
   title: {
     color: colors.textTitle,
