@@ -1,29 +1,65 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Dimensions, StyleSheet} from 'react-native';
 import {Header} from '../components';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
+import {useSelector} from 'react-redux';
+import {index} from '../services/trash';
 
-// import { Container } from './styles';
+const widthScreen = Dimensions.get('window').width;
 
-const Map = ({locations}) => {
+const Map = () => {
+  const token = useSelector((state) => state?.user?.token);
+  const [bins, setBins] = useState([]);
+
+  useEffect(() => {
+    loadBins();
+  });
+
+  // const renderBins = () => {
+  //   bins.map((marker) => (
+  //     <Marker
+  //       coordinate={marker.latlng}
+  //       title={marker.title}
+  //       description={marker.description}
+  //     />
+  //   ));
+  // };
+
+  const loadBins = async () => {
+    const bins = await index(token);
+    console.log(bins);
+    setBins(bins);
+  };
+
   return (
     <View>
       <Header text="Recyclings" />
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <MapView
-          style={{flex: 1}}
+          style={styles.map}
+          loadingEnabled={true}
+          showsUserLocation={true}
           initialRegion={{
             latitude: 37.78825,
             longitude: -122.4324,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-          showsUserLocation
-          loadingEnabled
+          mapType={'standard'}
         />
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+  },
+  map: {
+    width: widthScreen,
+    height: 700,
+  },
+});
 
 export default Map;
